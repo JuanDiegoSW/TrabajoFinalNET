@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Restaurant.Models.Items>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listado de Platillos</h2>
+
+<p>
+    @Html.ActionLink("Agregar Nuevo Plantillo", "Create",null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <label class="control-label col-md-2">Nombre</label>
+        </th>
+        <th>
+            <label class="control-label col-md-2">Precio</label>
+        </th>
+        <th>
+            <label class="control-label col-md-2">Imagen</label>
+        </th>
+        <th>
+            <label class="control-label col-md-2">Categoria</label>
+        </th>
+        <th><label class="control-label col-md-2">Opciones</label></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemPrice)
+        </td>
+        <td>
+            <img width="100" style="text-align:center" src="@Url.Action("getImage","Items", new { id=item.itemId})" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.NameCategory)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.itemId }, new{ @class = "btn btn-success" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.itemId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
